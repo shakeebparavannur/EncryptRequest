@@ -7,6 +7,10 @@ namespace EncryptRequest.Controllers
     [ApiController]
     public class EncryptController : ControllerBase
     {
-
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("sample data");
+        }
     }
 }

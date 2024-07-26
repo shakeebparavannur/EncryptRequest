@@ -1,5 +1,7 @@
 
 using EncryptRequest.Middleware;
+using Microsoft.Extensions.Configuration;
+using static EncryptRequest.Middleware.EncryptionMiddleware;
 
 namespace EncryptRequest
 {
@@ -15,6 +17,8 @@ namespace EncryptRequest
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+           // builder.Services.AddTransient<EncryptionMiddleware>();
 
             var app = builder.Build();
 
@@ -24,6 +28,7 @@ namespace EncryptRequest
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<EncryptionMiddleware>();
 
             app.UseHttpsRedirection();
 
